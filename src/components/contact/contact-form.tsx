@@ -7,7 +7,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
-export function ContactForm() {
+interface ContactFormProps {
+  submitLabel?: string;
+}
+
+export function ContactForm({ submitLabel }: ContactFormProps = {}) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
