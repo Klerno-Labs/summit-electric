@@ -106,7 +106,7 @@ export default function AboutPage() {
                 <Users className="w-7 h-7" />
               </div>
               <h3 className="text-xl font-bold mb-3">Integrity</h3>
-              <p className="text-muted">Honest pricing and honest assessments. If a repair isn&apos;t necessary, we'll tell you.</p>
+              <p className="text-muted">Honest pricing and honest assessments. If a repair isn&apos;t necessary, we&apos;ll tell you.</p>
             </CardContent>
           </Card>
           <Card>
