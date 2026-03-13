@@ -1,38 +1,41 @@
 import { NextResponse } from "next/server";
+import * as z from "zod";
+
+const contactSchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  phone: z.string().min(10),
+  service: z.string().optional(),
+  message: z.string().min(10),
+  _gotcha: z.string().optional(),
+});
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, service, message } = body;
+    
+    // Validation
+    const validatedData = contactSchema.parse(body);
 
-    // Basic validation
-    if (!name || !email || !phone || !message) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
+    // Honeypot check
+    if (validatedData._gotcha) {
+      // Silently succeed to fool bots, but don't send email
+      return NextResponse.json({ success: true }, { status: 200 });
     }
 
-    // Here you would typically send an email using a service like Resend, SendGrid, or Nodemailer
-    // For this demo, we will simulate a successful response
-    console.log("Form submission received:", {
-      name,
-      email,
-      phone,
-      service,
-      message,
-      timestamp: new Date().toISOString(),
-    });
+    // In a real environment, you would send an email here using Nodemailer, SendGrid, or Resend
+    // Example: await sendEmail(validatedData);
+    
+    console.log("Form received:", validatedData);
 
-    // Simulate network delay
+    // Simulate network delay for better UX (loading state)
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    return NextResponse.json({ success: true, message: "Email sent successfully" });
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.error("Contact form error:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: "Invalid form data." }, { status: 400 });
+    }
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

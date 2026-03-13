@@ -9,101 +9,109 @@
 // to edit to swap any image on the entire website.
 
 export const images = {
-  // Homepage hero banner — Professional electrician working
+  // Homepage hero banner — the first image visitors see — REPLACE with a real Unsplash URL matching: "Professional home renovation project"
   "hero": {
-    src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&h=800&fit=crop&q=80",
-    alt: "Professional electrician working on a residential electrical panel",
+    src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1600&auto=format&fit=crop",
+    alt: "Electrician working on residential panel",
     width: 1200,
     height: 800,
   },
 
-  // Alternative hero image — Modern home interior
+  // Alternative hero image (used on inner pages or as fallback) — REPLACE with a real Unsplash URL matching: "Modern kitchen renovation with marble countertops"
   "hero-alt": {
-    src: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&h=800&fit=crop&q=80",
-    alt: "Modern home interior with lighting fixtures",
+    src: "https://images.unsplash.com/photo-1584622050111-993a426fbf0a?q=80&w=1600&auto=format&fit=crop",
+    alt: "Modern residential interior with clean electrical wiring",
     width: 1200,
     height: 800,
   },
 
-  // About page — Team of electricians
+  // About page or About section on homepage — REPLACE with a real Unsplash URL matching: "Craftsman working on home improvement"
   "about": {
-    src: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=800&fit=crop&q=80",
-    alt: "Team of professional electricians reviewing blueprints",
+    src: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1600&auto=format&fit=crop",
+    alt: "Senior engineer reviewing blueprints on tablet",
     width: 1200,
     height: 800,
   },
 
-  // Service 1 — Residential Wiring
+  // First service card image — REPLACE with a real Unsplash URL matching: "Beautiful modern home exterior"
   "service-1": {
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop&q=80",
-    alt: "Modern electrical panel in a new home",
-    width: 800,
-    height: 600,
+    src: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop",
+    alt: "Modern luxury home exterior at dusk",
+    width: 600,
+    height: 400,
   },
 
-  // Service 2 — Lighting Installation
+  // Second service card image — REPLACE with a real Unsplash URL matching: "Luxurious modern bathroom renovation"
   "service-2": {
-    src: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&h=600&fit=crop&q=80",
-    alt: "Bright modern kitchen with pendant lighting",
-    width: 800,
-    height: 600,
+    src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop",
+    alt: "Office building with modern electrical lighting",
+    width: 600,
+    height: 400,
   },
 
-  // Service 3 — Emergency Repair
+  // Third service card image — REPLACE with a real Unsplash URL matching: "Professional tradesperson at work"
   "service-3": {
-    src: "https://images.unsplash.com/photo-1544724107-6d5c4caaff30?w=800&h=600&fit=crop&q=80",
-    alt: "Electrician troubleshooting a circuit issue",
-    width: 800,
-    height: 600,
+    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop",
+    alt: "Close up of circuit breaker panel",
+    width: 600,
+    height: 400,
   },
 
-  // Gallery 1 — Renovation
+  // Gallery image 1 — REPLACE with a real Unsplash URL matching: "Modern home interior with natural light"
   "gallery-1": {
-    src: "https://images.unsplash.com/photo-1556912173-3db996ea8e30?w=800&h=600&fit=crop&q=80",
-    alt: "Completed home renovation with upgraded lighting",
-    width: 800,
-    height: 600,
+    src: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop",
+    alt: "Renovated living room with recessed lighting",
+    width: 600,
+    height: 400,
   },
 
-  // Gallery 2 — Outdoor Lighting
+  // Gallery image 2 — REPLACE with a real Unsplash URL matching: "Elegant living room with contemporary design"
   "gallery-2": {
-    src: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&h=600&fit=crop&q=80",
-    alt: "Outdoor landscape lighting at dusk",
-    width: 800,
-    height: 600,
+    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop",
+    alt: "Modern kitchen island with pendant lights",
+    width: 600,
+    height: 400,
   },
 
-  // Gallery 3 — Commercial
+  // Gallery image 3 — REPLACE with a real Unsplash URL matching: "Clean organized workshop tools"
   "gallery-3": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80",
-    alt: "Commercial office electrical setup",
-    width: 800,
-    height: 600,
+    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
+    alt: "Professional tools and equipment organized",
+    width: 600,
+    height: 400,
   },
 
-  // CTA Section Background
+  // Call-to-action section background — REPLACE with a real Unsplash URL matching: "Stunning home exterior at golden hour"
   "cta": {
-    src: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=1200&h=600&fit=crop&q=80",
-    alt: "Summit Electric service van parked in a neighborhood",
+    src: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1600&auto=format&fit=crop",
+    alt: "Beautiful house exterior in the evening",
     width: 1200,
     height: 600,
   },
 
-  // Testimonials Background
+  // Testimonials section background or decoration — REPLACE with a real Unsplash URL matching: "Modern home with landscaped garden"
   "testimonial-bg": {
-    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&h=900&fit=crop&q=80",
-    alt: "Beautiful home exterior at sunset",
-    width: 1600,
-    height: 900,
-  },
-
-  // Gallery 4 — Smart Home
-  "gallery-4": {
-    src: "https://images.unsplash.com/photo-1558002038-1091a1661116?w=800&h=600&fit=crop&q=80",
-    alt: "Smart home touchscreen panel",
-    width: 800,
+    src: "https://images.unsplash.com/photo-1600596542815-27b9c0f69218?q=80&w=1600&auto=format&fit=crop",
+    alt: "Suburban home with landscaping",
+    width: 1200,
     height: 600,
   },
+
+  // Gallery image 4 — REPLACE with a real Unsplash URL matching: "Contemporary house front entrance"
+  "gallery-4": {
+    src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop",
+    alt: "Modern house front entrance with lights",
+    width: 600,
+    height: 400,
+  },
+  
+  // Technician
+  "technician": {
+    src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop",
+    alt: "Smiling electrician in uniform",
+    width: 400,
+    height: 500,
+  }
 } as const;
 
 export type ImageSlot = keyof typeof images;

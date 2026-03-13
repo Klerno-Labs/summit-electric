@@ -1,126 +1,125 @@
-import { Hero } from "@/components/sections/Hero";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { Heading } from "@/components/ui/Heading";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
-import { Zap, Home, Lightbulb, Plug, Wrench, Shield } from "lucide-react";
-import { CTASection } from "@/components/sections/CTASection";
-import { ContactForm } from "@/components/forms/ContactForm";
+"use client";
 
-export const metadata = {
-  title: "Our Services",
-  description: "Summit Electric offers a full range of electrical services including panel upgrades, EV charging, lighting, and emergency repairs in Austin.",
+import { useState } from "react";
+import { Metadata } from "next";
+import { Zap, Home, Building, Hammer, Lightbulb, Plug, Fan, Settings } from "lucide-react";
+import { Section } from "@/components/ui/section";
+import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/contact/contact-form";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+
+// Note: Metadata is exported for static generation, but file is client for tabs
+export const metadata: Metadata = {
+  title: "Our Services | Summit Electric",
+  description: "Comprehensive electrical services including residential repair, panel upgrades, commercial wiring, and lighting installation in Austin, TX.",
 };
 
-const services = [
-  {
-    icon: Zap,
-    title: "Panel Upgrades",
-    description: "Modernize your home's electrical system with a new panel that meets today's energy demands. Perfect for older homes needing 200-amp upgrades.",
-    price: "Starting at $2,500",
+type Category = "residential" | "commercial" | "repair";
+
+const servicesData: Record<Category, { title: string; items: { title: string; desc: string; icon: any }[] }> = {
+  residential: {
+    title: "Residential Services",
+    items: [
+      { title: "Panel Upgrades", desc: "Upgrade your old fuse box to a modern circuit breaker panel for safety.", icon: Zap },
+      { title: "Lighting Installation", desc: "Recessed lighting, chandeliers, and outdoor landscape lighting.", icon: Lightbulb },
+      { title: "EV Charger Installation", desc: "Install a Level 2 charger for your electric vehicle at home.", icon: Plug },
+      { title: "Rewiring & Remodels", desc: "Complete wiring for kitchen renovations, additions, and basements.", icon: Home },
+    ],
   },
-  {
-    icon: Plug,
-    title: "EV Charger Installation",
-    description: "Get your Tesla, Chevy, or Ford charging quickly at home. We install Level 2 chargers compatible with all major electric vehicle brands.",
-    price: "Starting at $800",
+  commercial: {
+    title: "Commercial Services",
+    items: [
+      { title: "Office Wiring", desc: "Data cabling, power drops, and lighting for office environments.", icon: Building },
+      { title: "Retail Lighting", desc: "Energy-efficient lighting solutions to showcase your products.", icon: Lightbulb },
+      { title: "Maintenance Contracts", desc: "Regular inspections and maintenance to prevent costly downtime.", icon: Settings },
+      { title: "Tenant Improvements", desc: "Fast turnaround for build-outs and tenant finish work.", icon: Hammer },
+    ],
   },
-  {
-    icon: Lightbulb,
-    title: "Lighting Solutions",
-    description: "From recessed lighting to landscape illumination, we design and install lighting systems that enhance your home's aesthetics and security.",
-    price: "Custom Quotes",
+  repair: {
+    title: "Emergency & Repair",
+    items: [
+      { title: "Troubleshooting", desc: "Quickly diagnose and fix flickering lights, outlets, and breakers.", icon: Settings },
+      { title: "Storm Damage Repair", desc: "Assessment and repair of damage caused by weather events.", icon: Zap },
+      { title: "Surge Protection", desc: "Whole-home surge protection to safeguard your electronics.", icon: Shield },
+      { title: "24/7 Emergency Service", desc: "Available around the clock for urgent electrical issues.", icon: Fan },
+    ],
   },
-  {
-    icon: Wrench,
-    title: "Repair & Troubleshooting",
-    description: "Flickering lights? Tripped breakers? Our expert technicians diagnose and fix issues fast to restore your power safely.",
-    price: "Service Call $89",
-  },
-  {
-    icon: Shield,
-    title: "Safety Inspections",
-    description: "Essential for home buyers and sellers. We provide a comprehensive report on the condition of your electrical system.",
-    price: "Starting at $150",
-  },
-  {
-    icon: Home,
-    title: "Whole Home Rewiring",
-    description: "Replace old, aluminum wiring with safe copper wiring. A major investment that increases your home's value and safety.",
-    price: "Custom Quotes",
-  },
-];
+};
 
 export default function ServicesPage() {
+  const [activeTab, setActiveTab] = useState<Category>("residential");
+
   return (
     <>
-      <Hero variant="centered" title="Our Electrical Services" />
-      
-      <SectionWrapper>
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <Heading level={2}>Complete Electrical Solutions</Heading>
-          <p className="text-lg text-muted mt-4">
-            We handle projects of all sizes, from small fixes to major installations. All work is performed by licensed electricians and comes with a satisfaction guarantee.
-          </p>
+      <section className="bg-gray-900 py-20 text-center text-white">
+        <div className="container-custom">
+          <h1 className="text-white mb-4">Our Electrical Services</h1>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">From fixing a broken outlet to wiring a new commercial building, we do it all.</p>
         </div>
+      </section>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {services.map((service, index) => (
-            <Card key={index} className="h-full flex flex-col">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
-                  <service.icon className="w-6 h-6" />
-                </div>
-                <CardTitle>{service.title}</CardTitle>
-                <CardDescription>{service.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
-                <span className="text-sm font-bold text-accent">{service.price}</span>
-                <button className="text-primary font-semibold text-sm hover:underline">Request Quote</button>
-              </CardContent>
-            </Card>
+      <Section>
+        {/* Tabs */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {(["residential", "commercial", "repair"] as Category[]).map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveTab(cat)}
+              className={cn(
+                "px-6 py-3 rounded-full font-semibold text-sm uppercase tracking-wide transition-all",
+                activeTab === cat
+                  ? "bg-[#0056b3] text-white shadow-lg"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              )}
+            >
+              {cat}
+            </button>
           ))}
         </div>
-      </SectionWrapper>
 
-      <SectionWrapper background="gray">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <Heading level={2} className="mb-6">Request a Service</Heading>
-            <p className="text-muted text-lg mb-6">
-              Tell us what you need help with. We typically respond to quote requests within 2 hours during business hours.
-            </p>
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <ContactForm />
+        {/* Content Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-20">
+          {servicesData[activeTab].items.map((item, i) => (
+            <div key={i} className="flex gap-6 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-shadow bg-white">
+               <div className="w-12 h-12 bg-blue-50 text-[#0056b3] rounded-lg flex-shrink-0 flex items-center justify-center">
+                  <item.icon className="w-6 h-6" />
+               </div>
+               <div>
+                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-gray-600 leading-relaxed mb-4">{item.desc}</p>
+                  <Link href="/contact" className="text-[#0056b3] font-semibold text-sm hover:underline">Request this service &rarr;</Link>
+               </div>
             </div>
+          ))}
+        </div>
+
+        {/* Sidebar / Form Area */}
+        <div className="grid lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2 space-y-8">
+             <h2>Service Area</h2>
+             <p className="text-lg text-gray-600">We proudly serve Austin, West Lake Hills, Round Rock, Cedar Park, and surrounding areas within a 30-mile radius.</p>
+             
+             <div className="bg-slate-50 p-8 rounded-xl border border-gray-100">
+                <h3 className="text-xl font-bold mb-4">Why Professional Installation Matters</h3>
+                <p className="text-gray-600 mb-4">DIY electrical work is dangerous and often violates local building codes. Improper wiring is a leading cause of house fires.</p>
+                <ul className="space-y-2">
+                   <li className="flex items-center gap-2 text-gray-700"><span className="text-green-500 font-bold">✓</span> Ensures insurance coverage</li>
+                   <li className="flex items-center gap-2 text-gray-700"><span className="text-green-500 font-bold">✓</span> Meets NEC safety standards</li>
+                   <li className="flex items-center gap-2 text-gray-700"><span className="text-green-500 font-bold">✓</span> Increases home value</li>
+                </ul>
+             </div>
           </div>
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Why Choose Summit Electric?</h3>
-              <ul className="space-y-3">
-                {["Licensed Master Electricians on staff", "Fully insured for your protection", "Clean, respectful technicians", "Transparent pricing - no surprises", "Warranty on all labor and parts"].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                    </div>
-                    <span className="text-muted">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-primary text-white p-8 rounded-2xl">
-              <h3 className="text-2xl font-bold mb-4">Maintenance Plan</h3>
-              <p className="text-gray-100 mb-4">
-                Join our annual maintenance plan and receive priority scheduling, discounted rates, and an annual safety inspection.
-              </p>
-              <button className="w-full bg-white text-primary font-bold py-3 rounded-lg hover:bg-gray-50 transition-colors">
-                Learn More
-              </button>
-            </div>
+
+          <div className="lg:col-span-1">
+             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 sticky top-28">
+                <h3 className="text-2xl font-bold mb-2">Get a Quote</h3>
+                <p className="text-sm text-gray-500 mb-6">Tell us what you need help with.</p>
+                <ContactForm />
+             </div>
           </div>
         </div>
-      </SectionWrapper>
-
-      <CTASection />
+      </Section>
     </>
   );
 }
