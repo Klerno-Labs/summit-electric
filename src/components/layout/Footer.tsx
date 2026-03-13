@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { Facebook, Instagram, Linkedin, Twitter, ArrowUp, MapPin, Mail, Phone } from "lucide-react";
