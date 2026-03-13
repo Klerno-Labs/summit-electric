@@ -36,7 +36,7 @@ export default function Home() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <Heading level={2}>Customer Testimonials</Heading>
           <p className="text-muted text-lg mt-4">
-            Don't just take our word for it. See why your neighbors trust Summit Electric.
+            Don&apos;t just take our word for it. See why your neighbors trust Summit Electric.
           </p>
         </div>
         <Testimonials />
@@ -47,7 +47,7 @@ export default function Home() {
           <div className="space-y-6">
             <Heading level={2}>Get A Free Quote</Heading>
             <p className="text-lg text-muted">
-              Ready to start your project? Fill out the form, and we'll get back to you with a transparent estimate within 24 hours.
+              Ready to start your project? Fill out the form, and we&apos;ll get back to you with a transparent estimate within 24 hours.
             </p>
             <div className="space-y-4">
               <div className="flex items-center gap-4">

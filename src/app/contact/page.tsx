@@ -21,7 +21,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
               <h2 className="text-3xl font-heading font-bold mb-2">Send us a Message</h2>
-              <p className="text-muted mb-6">Fill out the form below and we'll get back to you shortly.</p>
+              <p className="text-muted mb-6">Fill out the form below and we&apos;ll get back to you shortly.</p>
               <ContactForm />
             </div>
 

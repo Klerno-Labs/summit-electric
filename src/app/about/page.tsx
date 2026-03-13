@@ -23,10 +23,10 @@ export default function AboutPage() {
           <div className="order-2 lg:order-1">
             <Heading level={2} className="mb-6">Powering Austin Since 2008</Heading>
             <p className="text-muted text-lg mb-6 leading-relaxed">
-              Summit Electric started with a simple mission: to provide Austin homeowners with electrical services they could truly trust. Over the last decade, we've grown from a single van operation to one of the most respected electrical contractors in Central Texas.
+              Summit Electric started with a simple mission: to provide Austin homeowners with electrical services they could truly trust. Over the last decade, we&apos;ve grown from a single van operation to one of the most respected electrical contractors in Central Texas.
             </p>
             <p className="text-muted text-lg mb-6 leading-relaxed">
-              We believe that an electrician should be more than just a technician; they should be a partner in maintaining your home's safety and efficiency. Every member of our team undergoes rigorous background checks and continuous training to ensure they meet our high standards.
+              We believe that an electrician should be more than just a technician; they should be a partner in maintaining your home&apos;s safety and efficiency. Every member of our team undergoes rigorous background checks and continuous training to ensure they meet our high standards.
             </p>
             <p className="text-muted text-lg leading-relaxed">
               Whether you need a simple outlet repair or a complete home rewiring, we treat your home with the same care and respect we would treat our own.
@@ -106,7 +106,7 @@ export default function AboutPage() {
                 <Users className="w-7 h-7" />
               </div>
               <h3 className="text-xl font-bold mb-3">Integrity</h3>
-              <p className="text-muted">Honest pricing and honest assessments. If a repair isn't necessary, we'll tell you.</p>
+              <p className="text-muted">Honest pricing and honest assessments. If a repair isn&apos;t necessary, we'll tell you.</p>
             </CardContent>
           </Card>
           <Card>

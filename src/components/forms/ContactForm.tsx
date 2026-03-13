@@ -60,7 +60,7 @@ export function ContactForm({ variant = "default" }: { variant?: "default" | "co
       <div className="text-center py-8 px-4 bg-green-50 rounded-xl border border-green-100">
         <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto mb-4" />
         <h3 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-        <p className="text-gray-600">Thank you for contacting Summit Electric. We'll be in touch within 24 hours.</p>
+        <p className="text-gray-600">Thank you for contacting Summit Electric. We&apos;ll be in touch within 24 hours.</p>
       </div>
     );
   }
@@ -68,7 +68,7 @@ export function ContactForm({ variant = "default" }: { variant?: "default" | "co
   return (
     <form onSubmit={handleSubmit} className={cn("space-y-4", variant === "compact" && "space-y-3")}>
       <div className="hidden">
-        <label htmlFor="_gotcha">Don't fill this out if you're human</label>
+        <label htmlFor="_gotcha">Don&apos;t fill this out if you're human</label>
         <input
           id="_gotcha"
           name="_gotcha"

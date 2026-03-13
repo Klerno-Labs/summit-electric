@@ -21,7 +21,7 @@ export function CTASection() {
           Ready to Upgrade Your Home?
         </h2>
         <p className="text-xl text-gray-200 max-w-2xl mx-auto mb-8">
-          Whether it's a quick repair or a major renovation, Summit Electric is ready to help. Get a free quote today.
+          Whether it&apos;s a quick repair or a major renovation, Summit Electric is ready to help. Get a free quote today.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button variant="accent" size="lg" className="px-8">
