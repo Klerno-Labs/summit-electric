@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Metadata } from "next";
 import { Zap, Home, Building, Hammer, Lightbulb, Plug, Fan, Settings } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
@@ -9,11 +8,6 @@ import { ContactForm } from "@/components/contact/contact-form";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-// Note: Metadata is exported for static generation, but file is client for tabs
-export const metadata: Metadata = {
-  title: "Our Services | Summit Electric",
-  description: "Comprehensive electrical services including residential repair, panel upgrades, commercial wiring, and lighting installation in Austin, TX.",
-};
 
 type Category = "residential" | "commercial" | "repair";
 
