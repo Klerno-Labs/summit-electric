@@ -5,26 +5,31 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, phone, service, message } = body;
 
-    // Basic server-side validation
-    if (!name || !email || !phone) {
+    // Basic validation
+    if (!name || !email || !phone || !message) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    // In a production environment, you would integrate with an email service here
-    // e.g., SendGrid, Resend, or AWS SES.
-    // console.log("Form submission received:", { name, email, phone, service, message });
+    // Here you would typically send an email using a service like Resend, SendGrid, or Nodemailer
+    // For this demo, we will simulate a successful response
+    console.log("Form submission received:", {
+      name,
+      email,
+      phone,
+      service,
+      message,
+      timestamp: new Date().toISOString(),
+    });
 
-    // Simulating processing delay
+    // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    return NextResponse.json(
-      { message: "Message sent successfully" },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true, message: "Email sent successfully" });
   } catch (error) {
+    console.error("Contact form error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

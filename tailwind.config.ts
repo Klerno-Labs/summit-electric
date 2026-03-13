@@ -13,38 +13,42 @@ const config: Config = {
           DEFAULT: "#0056b3",
           foreground: "#ffffff",
         },
-        secondary: {
-          DEFAULT: "#f4f6f8",
-          foreground: "#1f2937",
-        },
         accent: {
           DEFAULT: "#ff6b00",
           foreground: "#ffffff",
         },
         background: "#ffffff",
         surface: "#ffffff",
-        text: "#1f2937",
+        foreground: "#1f2937",
         muted: "#6b7280",
-        border: "#e9ecef",
+        "muted-light": "#f4f6f8",
+        border: "#e5e7eb",
       },
       fontFamily: {
-        sans: ["var(--font-open-sans)", "sans-serif"],
         heading: ["var(--font-montserrat)", "sans-serif"],
+        body: ["var(--font-open-sans)", "sans-serif"],
       },
-      borderRadius: {
-        lg: "8px",
-        md: "6px",
-        xl: "12px",
-        "2xl": "16px",
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "hero-overlay": "linear-gradient(to right, rgba(0, 86, 179, 0.9), rgba(0, 86, 179, 0.4))",
       },
       boxShadow: {
         card: "0 2px 4px rgba(0,0,0,0.05)",
         hover: "0 12px 24px rgba(0,0,0,0.1)",
         modal: "0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
       },
+      animation: {
+        "fade-in-up": "fadeInUp 0.7s ease-out",
+        "bounce-slow": "bounce 2s infinite",
+      },
+      keyframes: {
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
-
 export default config;

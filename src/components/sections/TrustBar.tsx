@@ -1,26 +1,26 @@
-import { Shield, Clock, Award, Users } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { CheckCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const badges = [
-  { icon: Shield, text: "Licensed & Insured" },
-  { icon: Clock, text: "24/7 Emergency Service" },
-  { icon: Award, text: "5-Star Rated" },
-  { icon: Users, text: "Background Checked" },
-];
+export function TrustBar({ className }: { className?: string }) {
+  const items = [
+    "Licensed & Insured",
+    "Background Checked Techs",
+    "Upfront Pricing",
+    "Satisfaction Guaranteed",
+  ];
 
-export function TrustBar() {
   return (
-    <section className="bg-white border-y border-gray-100 py-8">
-      <div className="max-w-[1200px] mx-auto px-4">
-        <div className="flex flex-wrap justify-center md:justify-between items-center gap-8 md:gap-4">
-          {badges.map((badge, index) => (
-            <div key={index} className="flex items-center gap-3 text-text/80 font-medium text-sm md:text-base">
-              <badge.icon className="text-primary h-5 w-5 flex-shrink-0" />
-              <span>{badge.text}</span>
+    <div className={cn("border-y border-gray-100 bg-white py-6", className)}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+          {items.map((item) => (
+            <div key={item} className="flex items-center gap-2 text-sm font-bold text-gray-600">
+              <CheckCircle className="w-5 h-5 text-primary" />
+              {item}
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

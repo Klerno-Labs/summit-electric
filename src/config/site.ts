@@ -1,19 +1,19 @@
 export const siteConfig = {
   name: "Summit Electric",
-  description: "Trusted local service provider delivering quality electrical workmanship and reliable home improvement solutions in Austin, TX.",
-  url: "https://example.com",
+  description: "Reliable electrical services for Austin homes and businesses. Licensed, insured, and available 24/7 for emergencies.",
+  url: "https://summitelectric-demo.com",
   links: {
     twitter: "https://twitter.com",
     instagram: "https://instagram.com",
-    facebook: "https://facebook.com",
+    linkedin: "https://linkedin.com",
   },
   contact: {
     phone: "(512) 555-0198",
     email: "info@summitelectric.com",
-    address: "7825 Lamar Blvd, Suite 100, Austin, TX 78752",
-    hours: "Mon-Fri: 8am-6pm, Sat: 9am-2pm, Sun: Closed",
+    address: "4521 Westheimer Rd, Suite 200, Austin, TX 77027",
+    hours: "Mon-Fri: 7am-6pm, Sat: 8am-2pm, Sun: Emergency Only",
   },
-  nav: [
+  navItems: [
     { title: "Home", href: "/" },
     { title: "About", href: "/about" },
     { title: "Services", href: "/services" },

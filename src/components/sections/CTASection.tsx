@@ -4,29 +4,30 @@ import { images } from "@/config/images";
 
 export function CTASection() {
   return (
-    <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0">
-        <Image 
+    <section className="relative py-20 md:py-24 flex items-center">
+      <div className="absolute inset-0 z-0">
+        <Image
           src={images["cta"].src}
-          alt="Beautiful home exterior"
+          alt={images["cta"].alt}
           fill
           className="object-cover"
+          sizes="100vw"
         />
-        <div className="absolute inset-0 bg-primary/90" />
+        <div className="absolute inset-0 bg-primary/90 mix-blend-multiply" />
       </div>
       
-      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center text-white">
-        <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 text-center">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-6">
           Ready to Upgrade Your Home?
         </h2>
-        <p className="text-lg mb-8 text-blue-50 max-w-2xl mx-auto">
-          Get a free, no-obligation quote today. Our team is standing by to answer your questions and handle any electrical project.
+        <p className="text-xl text-gray-200 max-w-2xl mx-auto mb-8">
+          Whether it's a quick repair or a major renovation, Summit Electric is ready to help. Get a free quote today.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" variant="accent" className="text-white px-8">
-            Schedule Appointment
+          <Button variant="accent" size="lg" className="px-8">
+            Schedule Service
           </Button>
-          <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+          <Button variant="outline" size="lg" className="bg-transparent text-white border-white hover:bg-white hover:text-primary px-8">
             View Services
           </Button>
         </div>

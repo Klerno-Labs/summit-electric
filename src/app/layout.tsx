@@ -3,31 +3,44 @@ import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { MobileCTA } from "@/components/layout/MobileCTA";
 import { siteConfig } from "@/config/site";
 
-const headingFont = Montserrat({ 
+const montserrat = Montserrat({ 
   subsets: ["latin"],
   variable: "--font-montserrat",
   display: "swap",
 });
 
-const bodyFont = Open_Sans({
+const openSans = Open_Sans({ 
   subsets: ["latin"],
   variable: "--font-open-sans",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  metadataBase: new URL("https://summitelectric-demo.com"),
   openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
-    type: "website",
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -38,47 +51,49 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${headingFont.variable} ${bodyFont.variable} font-sans antialiased`}>
+      <body className={`${montserrat.variable} ${openSans.variable}`}>
         <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <main className="min-h-screen pt-20">{children}</main>
+        <MobileCTA />
         <Footer />
-        
-        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Electrician",
-              "name": siteConfig.name,
-              "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200",
-              "telephone": siteConfig.contact.phone,
-              "email": siteConfig.contact.email,
-              "address": {
+              name: siteConfig.name,
+              image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200",
+              "@id": siteConfig.url,
+              url: siteConfig.url,
+              telephone: siteConfig.contact.phone,
+              address: {
                 "@type": "PostalAddress",
-                "streetAddress": "7825 Lamar Blvd, Suite 100",
-                "addressLocality": "Austin",
-                "addressRegion": "TX",
-                "postalCode": "78752",
-                "addressCountry": "US"
+                streetAddress: "4521 Westheimer Rd, Suite 200",
+                addressLocality: "Austin",
+                addressRegion: "TX",
+                postalCode: "77027",
+                addressCountry: "US",
               },
-              "priceRange": "$$",
-              "openingHoursSpecification": [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                  "opens": "08:00",
-                  "closes": "18:00"
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": "Saturday",
-                  "opens": "09:00",
-                  "closes": "14:00"
-                }
-              ]
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: 30.2672,
+                longitude: -97.7431,
+              },
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                ],
+                opens: "07:00",
+                closes: "18:00",
+              },
+              priceRange: "$$",
             }),
           }}
         />

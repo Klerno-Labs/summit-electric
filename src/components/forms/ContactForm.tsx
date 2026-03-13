@@ -2,48 +2,54 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { cn } from "@/lib/utils";
+import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
-export function ContactForm() {
+export function ContactForm({ variant = "default" }: { variant?: "default" | "compact" }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError("");
-    setIsSuccess(false);
-
-    const formData = new FormData(e.currentTarget);
     
-    // Honeypot check
-    if (formData.get("_gotcha")) {
-      setIsSubmitting(false);
+    if (honeypot) {
+      console.log("Bot detected");
       return;
     }
 
+    setIsSubmitting(true);
+    setError("");
+
     try {
-      // In a real static export scenario, this fetch might point to an external service like Formspree.
-      // Here we point to the local API route as requested, acknowledging static export limitations.
       const response = await fetch("/api/contact", {
         method: "POST",
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          phone: formData.get("phone"),
-          service: formData.get("service"),
-          message: formData.get("message"),
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setIsSuccess(true);
-        e.currentTarget.reset();
+        setFormData({ name: "", email: "", phone: "", service: "", message: "" });
       } else {
         setError("Something went wrong. Please try again.");
       }
     } catch (err) {
-      setError("Network error. Please try again.");
+      setError("Network error. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -51,103 +57,125 @@ export function ContactForm() {
 
   if (isSuccess) {
     return (
-      <div className="bg-green-50 border border-green-200 p-8 rounded-xl text-center">
-        <div className="mx-auto w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
-          <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h3 className="text-xl font-bold text-green-900 mb-2">Message Sent!</h3>
-        <p className="text-green-700">Thank you for contacting Summit Electric. We'll be in touch within 24 hours.</p>
+      <div className="text-center py-8 px-4 bg-green-50 rounded-xl border border-green-100">
+        <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto mb-4" />
+        <h3 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+        <p className="text-gray-600">Thank you for contacting Summit Electric. We'll be in touch within 24 hours.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Honeypot */}
-      <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
-
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-semibold text-text">Name *</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            maxLength={50}
-            className="w-full px-4 py-3 border border-gray-200 rounded-md text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-            placeholder="John Doe"
-          />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="phone" className="text-sm font-semibold text-text">Phone Number *</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            required
-            pattern="[0-9]{10}"
-            className="w-full px-4 py-3 border border-gray-200 rounded-md text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-            placeholder="(512) 555-0198"
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-semibold text-text">Email Address *</label>
+    <form onSubmit={handleSubmit} className={cn("space-y-4", variant === "compact" && "space-y-3")}>
+      <div className="hidden">
+        <label htmlFor="_gotcha">Don't fill this out if you're human</label>
         <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="w-full px-4 py-3 border border-gray-200 rounded-md text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-          placeholder="john@example.com"
+          id="_gotcha"
+          name="_gotcha"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
         />
       </div>
 
-      <div className="space-y-2">
-        <label htmlFor="service" className="text-sm font-semibold text-text">Service Needed</label>
+      <div>
+        <Label htmlFor="name">Full Name</Label>
+        <Input
+          id="name"
+          name="name"
+          type="text"
+          required
+          placeholder="John Doe"
+          value={formData.name}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <Label htmlFor="email">Email Address</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            required
+            placeholder="john@example.com"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="phone">Phone Number</Label>
+          <Input
+            id="phone"
+            name="phone"
+            type="tel"
+            required
+            placeholder="(512) 555-0123"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div>
+        <Label htmlFor="service">Service Needed</Label>
         <select
           id="service"
           name="service"
-          className="w-full px-4 py-3 border border-gray-200 rounded-md text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all bg-white"
+          required
+          value={formData.service}
+          onChange={handleChange}
+          className="flex h-12 w-full rounded-md border border-border bg-white px-4 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 transition-all"
         >
           <option value="">Select a service...</option>
-          <option value="residential">Residential Repair</option>
-          <option value="panel">Panel Upgrade</option>
-          <option value="lighting">Lighting Installation</option>
-          <option value="ev">EV Charger</option>
-          <option value="other">Other</option>
+          <option value="Residential Repair">Residential Repair</option>
+          <option value="Panel Upgrade">Panel Upgrade</option>
+          <option value="Lighting Installation">Lighting Installation</option>
+          <option value="EV Charger Install">EV Charger Install</option>
+          <option value="Commercial Service">Commercial Service</option>
+          <option value="Emergency Service">Emergency Service</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 
-      <div className="space-y-2">
-        <label htmlFor="message" className="text-sm font-semibold text-text">Message</label>
+      <div>
+        <Label htmlFor="message">Message</Label>
         <textarea
           id="message"
           name="message"
           rows={4}
-          maxLength={500}
-          className="w-full px-4 py-3 border border-gray-200 rounded-md text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-          placeholder="Tell us about your project..."
+          required
+          placeholder="Please describe your issue or project..."
+          value={formData.message}
+          onChange={handleChange}
+          className="flex w-full rounded-md border border-border bg-white px-4 py-2 text-sm text-foreground ring-offset-background placeholder:text-muted focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all min-h-[100px]"
         />
       </div>
 
       {error && (
-        <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm font-medium">
+        <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 p-3 rounded-md">
+          <AlertCircle className="w-4 h-4" />
           {error}
         </div>
       )}
 
-      <Button 
-        type="submit" 
-        size="lg" 
+      <Button
+        type="submit"
+        variant="accent"
+        size="lg"
         className="w-full"
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Sending..." : "Send Message"}
+        {isSubmitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Sending...
+          </>
+        ) : (
+          "Send Message"
+        )}
       </Button>
     </form>
   );

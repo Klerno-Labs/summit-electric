@@ -1,85 +1,77 @@
-import Link from "next/link";
-import { Zap, Home, Wrench, Settings, Lightbulb, Plug } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { images } from "@/config/images";
+import { Zap, Home, Wrench, Shield, Lightbulb, Plug } from "lucide-react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-const allServices = [
+const services = [
   {
-    title: "Residential Electrical",
-    description: "Complete home wiring, outlet repair, and safety inspections for your peace of mind.",
-    icon: Home,
-    link: "/services",
-    imageKey: "service-1" as keyof typeof images,
-  },
-  {
-    title: "Panel Upgrades",
-    description: "Increase your home's capacity and safety with a modern electrical panel upgrade.",
-    icon: Settings,
-    link: "/services",
-    imageKey: "service-2" as keyof typeof images,
-  },
-  {
-    title: "Emergency Repairs",
-    description: "Fast response times for power outages, wiring faults, and electrical hazards.",
     icon: Zap,
+    title: "Panel Upgrades",
+    description: "Increase your home's power capacity and safety with a modern electrical panel upgrade.",
     link: "/services",
-    imageKey: "service-3" as keyof typeof images,
   },
   {
+    icon: Lightbulb,
     title: "Lighting Installation",
     description: "Indoor and outdoor lighting solutions to enhance your home's beauty and security.",
-    icon: Lightbulb,
     link: "/services",
-    imageKey: "gallery-1" as keyof typeof images,
   },
   {
-    title: "EV Charger Install",
-    description: "Professional installation of Tesla and other Level 2 electric vehicle chargers.",
     icon: Plug,
+    title: "EV Charger Install",
+    description: "Professional installation of Level 2 electric vehicle chargers in your garage.",
     link: "/services",
-    imageKey: "gallery-2" as keyof typeof images,
   },
   {
-    title: "Commercial Services",
-    description: "Reliable electrical maintenance and installation for local businesses.",
     icon: Wrench,
+    title: "Repairs & Troubleshooting",
+    description: "Fast diagnosis and repair of outlets, switches, and circuit breakers.",
     link: "/services",
-    imageKey: "gallery-4" as keyof typeof images,
+  },
+  {
+    icon: Shield,
+    title: "Safety Inspections",
+    description: "Comprehensive electrical safety inspections for real estate transactions and peace of mind.",
+    link: "/services",
+  },
+  {
+    icon: Home,
+    title: "Rewiring Services",
+    description: "Complete home rewiring for older homes to meet modern safety codes.",
+    link: "/services",
   },
 ];
 
 interface ServicesGridProps {
   limit?: number;
+  className?: string;
 }
 
-export function ServicesGrid({ limit }: ServicesGridProps) {
-  const services = limit ? allServices.slice(0, limit) : allServices;
+export function ServicesGrid({ limit, className }: ServicesGridProps) {
+  const displayServices = limit ? services.slice(0, limit) : services;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {services.map((service, index) => {
-        const Icon = service.icon;
-        return (
-          <Card 
-            key={index} 
-            className="group hover:-translate-y-1 transition-all duration-300 border border-gray-100 hover:border-primary/20"
-          >
-            <CardHeader>
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <Icon className="text-primary h-6 w-6" />
-              </div>
-              <CardTitle className="text-xl mb-2">{service.title}</CardTitle>
-              <CardDescription className="text-base">{service.description}</CardDescription>
-            </CardHeader>
-            <div className="px-6 pb-6">
-              <Link href={service.link} className="inline-flex items-center text-primary font-semibold text-sm hover:underline">
-                Learn More
-              </Link>
+    <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8", className)}>
+      {displayServices.map((service, index) => (
+        <Card key={index} className="group hover:-translate-y-1 transition-transform duration-300">
+          <CardHeader>
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+              <service.icon className="w-6 h-6" />
             </div>
-          </Card>
-        );
-      })}
+            <CardTitle className="text-xl">{service.title}</CardTitle>
+            <CardDescription>{service.description}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link 
+              href={service.link} 
+              className="inline-flex items-center text-primary font-bold text-sm group-hover:underline"
+            >
+              Learn More
+            </Link>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 }

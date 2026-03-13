@@ -1,67 +1,124 @@
 import { Hero } from "@/components/sections/Hero";
-import { ServicesGrid } from "@/components/sections/ServicesGrid";
+import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { Heading } from "@/components/ui/Heading";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
+import { Zap, Home, Lightbulb, Plug, Wrench, Shield } from "lucide-react";
 import { CTASection } from "@/components/sections/CTASection";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { CheckCircle2, Clock, Wrench } from "lucide-react";
+import { ContactForm } from "@/components/forms/ContactForm";
 
 export const metadata = {
   title: "Our Services",
-  description: "Summit Electric offers a full range of electrical services including repairs, upgrades, and installations.",
+  description: "Summit Electric offers a full range of electrical services including panel upgrades, EV charging, lighting, and emergency repairs in Austin.",
 };
 
-const process = [
-  { title: "1. Schedule", desc: "Book an appointment online or call us.", icon: Clock },
-  { title: "2. Diagnosis", desc: "We assess the issue and provide a clear quote.", icon: Wrench },
-  { title: "3. Execution", desc: "Our electricians complete the work efficiently.", icon: CheckCircle2 },
+const services = [
+  {
+    icon: Zap,
+    title: "Panel Upgrades",
+    description: "Modernize your home's electrical system with a new panel that meets today's energy demands. Perfect for older homes needing 200-amp upgrades.",
+    price: "Starting at $2,500",
+  },
+  {
+    icon: Plug,
+    title: "EV Charger Installation",
+    description: "Get your Tesla, Chevy, or Ford charging quickly at home. We install Level 2 chargers compatible with all major electric vehicle brands.",
+    price: "Starting at $800",
+  },
+  {
+    icon: Lightbulb,
+    title: "Lighting Solutions",
+    description: "From recessed lighting to landscape illumination, we design and install lighting systems that enhance your home's aesthetics and security.",
+    price: "Custom Quotes",
+  },
+  {
+    icon: Wrench,
+    title: "Repair & Troubleshooting",
+    description: "Flickering lights? Tripped breakers? Our expert technicians diagnose and fix issues fast to restore your power safely.",
+    price: "Service Call $89",
+  },
+  {
+    icon: Shield,
+    title: "Safety Inspections",
+    description: "Essential for home buyers and sellers. We provide a comprehensive report on the condition of your electrical system.",
+    price: "Starting at $150",
+  },
+  {
+    icon: Home,
+    title: "Whole Home Rewiring",
+    description: "Replace old, aluminum wiring with safe copper wiring. A major investment that increases your home's value and safety.",
+    price: "Custom Quotes",
+  },
 ];
 
 export default function ServicesPage() {
   return (
     <>
-      <Hero 
-        variant="split" 
-        title="Our Electrical Services"
-        subtitle="Comprehensive solutions for residential and commercial properties."
-        imageKey="hero-alt"
-      />
+      <Hero variant="centered" title="Our Electrical Services" />
       
-      <section className="py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl text-text mb-4">What We Do</h2>
-            <p className="text-muted text-lg max-w-2xl mx-auto">
-              From routine maintenance to complex installations, we have the expertise to handle any electrical challenge.
-            </p>
-          </div>
-          <ServicesGrid />
+      <SectionWrapper>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <Heading level={2}>Complete Electrical Solutions</Heading>
+          <p className="text-lg text-muted mt-4">
+            We handle projects of all sizes, from small fixes to major installations. All work is performed by licensed electricians and comes with a satisfaction guarantee.
+          </p>
         </div>
-      </section>
 
-      <section className="py-24 bg-secondary/30">
-        <div className="max-w-[1200px] mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="font-heading font-bold text-3xl text-text mb-4">Our Process</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {services.map((service, index) => (
+            <Card key={index} className="h-full flex flex-col">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                  <service.icon className="w-6 h-6" />
+                </div>
+                <CardTitle>{service.title}</CardTitle>
+                <CardDescription>{service.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+                <span className="text-sm font-bold text-accent">{service.price}</span>
+                <button className="text-primary font-semibold text-sm hover:underline">Request Quote</button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </SectionWrapper>
+
+      <SectionWrapper background="gray">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <Heading level={2} className="mb-6">Request a Service</Heading>
+            <p className="text-muted text-lg mb-6">
+              Tell us what you need help with. We typically respond to quote requests within 2 hours during business hours.
+            </p>
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <ContactForm />
+            </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {process.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <Card key={index} className="border-none shadow-sm bg-white">
-                  <CardHeader className="text-center">
-                    <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Icon size={24} />
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Why Choose Summit Electric?</h3>
+              <ul className="space-y-3">
+                {["Licensed Master Electricians on staff", "Fully insured for your protection", "Clean, respectful technicians", "Transparent pricing - no surprises", "Warranty on all labor and parts"].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <CardTitle>{step.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-center text-muted">{step.desc}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                    <span className="text-muted">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-primary text-white p-8 rounded-2xl">
+              <h3 className="text-2xl font-bold mb-4">Maintenance Plan</h3>
+              <p className="text-gray-100 mb-4">
+                Join our annual maintenance plan and receive priority scheduling, discounted rates, and an annual safety inspection.
+              </p>
+              <button className="w-full bg-white text-primary font-bold py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                Learn More
+              </button>
+            </div>
           </div>
         </div>
-      </section>
+      </SectionWrapper>
 
       <CTASection />
     </>

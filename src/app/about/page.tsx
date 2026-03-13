@@ -1,82 +1,125 @@
 import { Hero } from "@/components/sections/Hero";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { Heading } from "@/components/ui/Heading";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Zap, Shield, Users, Award } from "lucide-react";
 import { CTASection } from "@/components/sections/CTASection";
-import { Award, Users, Zap, ShieldCheck } from "lucide-react";
-
-const stats = [
-  { label: "Years Experience", value: "15+" },
-  { label: "Projects Completed", value: "2,500+" },
-  { label: "Master Electricians", value: "12" },
-  { label: "Satisfaction Rate", value: "100%" },
-];
-
-const values = [
-  { icon: ShieldCheck, title: "Safety First", desc: "We adhere to the strictest safety codes to protect your home and family." },
-  { icon: Users, title: "Community Focus", desc: "Proudly serving Austin homeowners with integrity and respect." },
-  { icon: Award, title: "Quality Work", desc: "We don't cut corners. Every job is done right the first time." },
-  { icon: Zap, title: "Efficiency", desc: "We value your time and ensure projects are completed on schedule." },
-];
+import { siteConfig } from "@/config/site";
+import Image from "next/image";
+import { images } from "@/config/images";
 
 export const metadata = {
   title: "About Us",
-  description: "Learn more about Summit Electric's history, values, and team of certified electricians.",
+  description: "Learn about Summit Electric's history, values, and commitment to safety in Austin, TX.",
 };
 
 export default function AboutPage() {
   return (
     <>
-      <Hero 
-        variant="centered" 
-        title="About Summit Electric" 
-        subtitle="Building a brighter, safer Austin since 2008."
-        imageKey="about"
-      />
+      <Hero variant="centered" title="About Summit Electric" />
       
-      <section className="py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
-            <div className="space-y-6">
-              <h2 className="font-heading font-bold text-3xl text-text">Our Story</h2>
-              <p className="text-muted text-lg leading-relaxed">
-                Summit Electric was founded on a simple principle: treat every customer's home like it's your own. What started as a one-truck operation has grown into Austin's most trusted electrical service provider.
-              </p>
-              <p className="text-muted text-lg leading-relaxed">
-                We specialize in both residential and commercial projects, ranging from simple repairs to complete electrical system overhauls. Our team of master electricians is fully licensed, insured, and committed to ongoing education to stay ahead of industry standards.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat, index) => (
-                <Card key={index} className="text-center p-6">
-                  <h3 className="font-heading font-bold text-3xl text-primary mb-2">{stat.value}</h3>
-                  <p className="text-sm font-medium text-muted">{stat.label}</p>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          <div className="text-center mb-16">
-            <h2 className="font-heading font-bold text-3xl text-text mb-4">Our Core Values</h2>
-            <p className="text-muted text-lg max-w-2xl mx-auto">
-              These principles guide every interaction we have with our clients.
+      <SectionWrapper>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="order-2 lg:order-1">
+            <Heading level={2} className="mb-6">Powering Austin Since 2008</Heading>
+            <p className="text-muted text-lg mb-6 leading-relaxed">
+              Summit Electric started with a simple mission: to provide Austin homeowners with electrical services they could truly trust. Over the last decade, we've grown from a single van operation to one of the most respected electrical contractors in Central Texas.
+            </p>
+            <p className="text-muted text-lg mb-6 leading-relaxed">
+              We believe that an electrician should be more than just a technician; they should be a partner in maintaining your home's safety and efficiency. Every member of our team undergoes rigorous background checks and continuous training to ensure they meet our high standards.
+            </p>
+            <p className="text-muted text-lg leading-relaxed">
+              Whether you need a simple outlet repair or a complete home rewiring, we treat your home with the same care and respect we would treat our own.
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => {
-              const Icon = value.icon;
-              return (
-                <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
-                    <Icon size={32} />
-                  </div>
-                  <h3 className="font-heading font-bold text-lg mb-3">{value.title}</h3>
-                  <p className="text-muted text-sm">{value.desc}</p>
-                </div>
-              );
-            })}
+          <div className="order-1 lg:order-2 relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
+            <Image 
+              src={images["about"].src} 
+              alt={images["about"].alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
           </div>
         </div>
-      </section>
+      </SectionWrapper>
+
+      <SectionWrapper background="gray">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <Card className="text-center p-6">
+            <CardContent className="pt-6 flex flex-col items-center">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                <Zap className="w-6 h-6" />
+              </div>
+              <div className="text-3xl font-bold text-foreground mb-1">15+</div>
+              <div className="text-sm text-muted">Years in Business</div>
+            </CardContent>
+          </Card>
+          <Card className="text-center p-6">
+            <CardContent className="pt-6 flex flex-col items-center">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                <Users className="w-6 h-6" />
+              </div>
+              <div className="text-3xl font-bold text-foreground mb-1">5,000+</div>
+              <div className="text-sm text-muted">Happy Customers</div>
+            </CardContent>
+          </Card>
+          <Card className="text-center p-6">
+            <CardContent className="pt-6 flex flex-col items-center">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                <Shield className="w-6 h-6" />
+              </div>
+              <div className="text-3xl font-bold text-foreground mb-1">100%</div>
+              <div className="text-sm text-muted">Licensed & Insured</div>
+            </CardContent>
+          </Card>
+          <Card className="text-center p-6">
+            <CardContent className="pt-6 flex flex-col items-center">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                <Award className="w-6 h-6" />
+              </div>
+              <div className="text-3xl font-bold text-foreground mb-1">4.9/5</div>
+              <div className="text-sm text-muted">Average Rating</div>
+            </CardContent>
+          </Card>
+        </div>
+      </SectionWrapper>
+
+      <SectionWrapper>
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <Heading level={2} className="mb-4">Our Values</Heading>
+          <p className="text-lg text-muted">The principles that guide every wire we connect.</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8">
+          <Card>
+            <CardContent className="p-8 text-center">
+              <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center text-accent mx-auto mb-6">
+                <Shield className="w-7 h-7" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Safety First</h3>
+              <p className="text-muted">We never cut corners. Every job is performed to the strictest safety codes to protect your family and property.</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-8 text-center">
+              <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center text-accent mx-auto mb-6">
+                <Users className="w-7 h-7" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Integrity</h3>
+              <p className="text-muted">Honest pricing and honest assessments. If a repair isn't necessary, we'll tell you.</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-8 text-center">
+              <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center text-accent mx-auto mb-6">
+                <Award className="w-7 h-7" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Excellence</h3>
+              <p className="text-muted">We show up on time, clean up after ourselves, and stand behind our work with a solid warranty.</p>
+            </CardContent>
+          </Card>
+        </div>
+      </SectionWrapper>
 
       <CTASection />
     </>
