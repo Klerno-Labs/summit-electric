@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { images } from "@/config/images";
 
@@ -6,12 +5,10 @@ export function CTASection() {
   return (
     <section className="relative py-20 md:py-24 flex items-center">
       <div className="absolute inset-0 z-0">
-        <Image
+        <img
           src={images["cta"].src}
-          alt={images["cta"].alt}
-          fill
+          alt={images["cta"].alt} style={{ width: "100%", height: "100%", objectFit: "cover" }}
           className="object-cover"
-          sizes="100vw"
         />
         <div className="absolute inset-0 bg-primary/90 mix-blend-multiply" />
       </div>

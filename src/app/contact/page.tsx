@@ -4,12 +4,11 @@ import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import Image from "next/image";
 import { images } from "@/config/images";
 
 export const metadata = {
   title: "Contact Us",
-  description: "Contact Summit Electric for electrical services in Austin, TX. Call us 24/7 or fill out our form for a free quote.",
+  description: "Contact Summit Electric for electrical services in Austin, TX. Call us 24/7 or style={{ width: "100%", height: "100%", objectFit: "cover" }} out our form for a free quote.",
 };
 
 export default function ContactPage() {
@@ -77,12 +76,10 @@ export default function ContactPage() {
               </div>
 
               <div className="relative h-64 rounded-2xl overflow-hidden shadow-lg">
-                 <Image 
+                 <img 
                   src={images["hero-alt"].src}
-                  alt="Map Placeholder"
-                  fill
+                  alt="Map Placeholder" style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-primary/80 flex items-center justify-center p-6 text-center text-white">
                   <p className="font-bold text-lg">Serving Greater Austin & Surrounding Areas</p>

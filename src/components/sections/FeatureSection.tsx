@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import { images } from "@/config/images";
 import { cn } from "@/lib/utils";
@@ -30,12 +29,10 @@ function FeatureBlock({ reverse, title, description, imageKey, features }: Featu
         </ul>
       </div>
       <div className="flex-1 relative h-[400px] w-full rounded-2xl overflow-hidden shadow-xl">
-        <Image
+        <img
           src={images[imageKey].src}
-          alt={images[imageKey].alt}
-          fill
+          alt={images[imageKey].alt} style={{ width: "100%", height: "100%", objectFit: "cover" }}
           className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 50vw"
         />
       </div>
     </div>

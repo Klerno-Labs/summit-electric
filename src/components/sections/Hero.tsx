@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Heading } from "@/components/ui/Heading";
@@ -58,13 +57,10 @@ export function Hero({ variant = "split", title, subtitle, className }: HeroProp
               </div>
             </div>
             <div className="relative lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
-              <Image
+              <img
                 src={images["hero"].src}
-                alt={images["hero"].alt}
-                fill
-                priority
+                alt={images["hero"].alt} style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
@@ -74,13 +70,10 @@ export function Hero({ variant = "split", title, subtitle, className }: HeroProp
         {variant === "centered" && (
           <div className="relative text-center max-w-4xl mx-auto">
             <div className="absolute inset-0 z-0">
-              <Image
+              <img
                 src={images["about"].src}
-                alt={images["about"].alt}
-                fill
-                priority
+                alt={images["about"].alt} style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 className="object-cover opacity-20"
-                sizes="100vw"
               />
             </div>
             <div className="relative z-10 space-y-8 text-white animate-fade-in-up">

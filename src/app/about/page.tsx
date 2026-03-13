@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/Card";
 import { Zap, Shield, Users, Award } from "lucide-react";
 import { CTASection } from "@/components/sections/CTASection";
 import { siteConfig } from "@/config/site";
-import Image from "next/image";
 import { images } from "@/config/images";
 
 export const metadata = {
@@ -33,12 +32,10 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="order-1 lg:order-2 relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
-            <Image 
+            <img 
               src={images["about"].src} 
-              alt={images["about"].alt}
-              fill
+              alt={images["about"].alt} style={{ width: "100%", height: "100%", objectFit: "cover" }}
               className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
         </div>
@@ -106,7 +103,7 @@ export default function AboutPage() {
                 <Users className="w-7 h-7" />
               </div>
               <h3 className="text-xl font-bold mb-3">Integrity</h3>
-              <p className="text-muted">Honest pricing and honest assessments. If a repair isn&apos;t necessary, we&apos;ll tell you.</p>
+              <p className="text-muted">Honest pricing and honest assessments. If a repair isn&apos;t necessary, we'll tell you.</p>
             </CardContent>
           </Card>
           <Card>
