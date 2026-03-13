@@ -1,41 +1,36 @@
 import { NextResponse } from "next/server";
-import * as z from "zod";
 
-const contactSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().min(10),
-  service: z.string().optional(),
-  message: z.string().min(10),
-  _gotcha: z.string().optional(),
-});
-
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const body = await request.json();
-    
-    // Validation
-    const validatedData = contactSchema.parse(body);
+    const body = await req.json();
+    const { name, email, phone, service, message, _gotcha } = body;
 
-    // Honeypot check
-    if (validatedData._gotcha) {
-      // Silently succeed to fool bots, but don't send email
-      return NextResponse.json({ success: true }, { status: 200 });
+    // 1. Honeypot Validation (Server-side)
+    if (_gotcha) {
+      return NextResponse.json({ message: "Spam detected" }, { status: 400 });
     }
 
-    // In a real environment, you would send an email here using Nodemailer, SendGrid, or Resend
-    // Example: await sendEmail(validatedData);
-    
-    console.log("Form received:", validatedData);
+    // 2. Basic Server Validation
+    if (!name || !email || !phone) {
+      return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
+    }
 
-    // Simulate network delay for better UX (loading state)
+    // 3. Simulate Email Service Integration (e.g., SendGrid, Resend)
+    // In a real app, you would do:
+    // await resend.emails.send({ ... })
+    
+    console.log("--- New Lead Received ---");
+    console.log(`Name: ${name}`);
+    console.log(`Email: ${email}`);
+    console.log(`Phone: ${phone}`);
+    console.log(`Service: ${service}`);
+    console.log(`Message: ${message}`);
+
+    // Artificial delay to simulate real API processing
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ message: "Success" }, { status: 200 });
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: "Invalid form data." }, { status: 400 });
-    }
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

@@ -1,71 +1,74 @@
 "use client";
 
-import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
-// Zod Schema for Validation
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters."),
-  email: z.string().email("Invalid email address."),
-  phone: z.string().min(10, "Phone number must be at least 10 digits."),
-  service: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters."),
-  _gotcha: z.string().optional(), // Honeypot
-});
-
-type FormData = z.infer<typeof formSchema>;
-
-interface ContactFormProps {
-  submitLabel?: string;
-  className?: string;
-}
-
-export function ContactForm({ submitLabel = "Send Message", className }: ContactFormProps) {
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [isSuccess, setIsSuccess] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+export function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+    _gotcha: "", // Honeypot
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  const onSubmit = async (data: FormData) => {
-    // Honeypot check
-    if (data._gotcha) {
-      console.log("Bot detected");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    // Honeypot check for bots
+    if (formData._gotcha) {
+      console.log("Bot detected via honeypot.");
+      return;
+    }
+
+    // Basic Validation
+    if (!formData.name || !formData.email || !formData.phone) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      setError("Please enter a valid phone number.");
       return;
     }
 
     setIsSubmitting(true);
-    setError(null);
 
     try {
-      const response = await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      if (res.ok) {
         setIsSuccess(true);
-        reset();
+        setFormData({ name: "", email: "", phone: "", service: "", message: "", _gotcha: "" });
       } else {
-        const result = await response.json();
-        setError(result.error || "Something went wrong. Please try again.");
+        setError("Something went wrong. Please try again.");
       }
     } catch (err) {
-      setError("Network error. Please check your connection.");
+      setError("Network error. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -73,96 +76,118 @@ export function ContactForm({ submitLabel = "Send Message", className }: Contact
 
   if (isSuccess) {
     return (
-      <div className={cn("text-center p-8 bg-green-50 border border-green-200 rounded-xl", className)}>
-        <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle2 className="w-8 h-8" />
+      <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center animate-fade-in">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-        <p className="text-gray-600">Thank you for reaching out. A member of our team will contact you within 24 hours.</p>
-        <Button
-          variant="outline"
-          className="mt-6 border-green-600 text-green-700 hover:bg-green-50"
-          onClick={() => setIsSuccess(false)}
-        >
-          Send another message
-        </Button>
+        <h3 className="text-xl font-bold text-green-900 mb-2">Message Sent!</h3>
+        <p className="text-green-700">Thank you for contacting Summit Electric. We'll be in touch within 24 hours.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cn("space-y-6", className)}>
-      {/* Honeypot */}
-      <input type="text" {...register("_gotcha")} className="hidden" tabIndex={-1} autoComplete="off" />
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {error && (
+        <div className="bg-red-50 text-red-700 p-4 rounded-md text-sm font-medium">
+          {error}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-semibold text-gray-900">Full Name <span className="text-red-500">*</span></label>
-          <Input id="name" placeholder="John Doe" {...register("name")} aria-invalid={!!errors.name} />
-          {errors.name && <p className="text-sm text-red-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.name.message}</p>}
+          <Label htmlFor="name">Full Name <span className="text-red-500">*</span></Label>
+          <Input
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="John Doe"
+            required
+          />
         </div>
-
         <div className="space-y-2">
-          <label htmlFor="phone" className="text-sm font-semibold text-gray-900">Phone Number <span className="text-red-500">*</span></label>
-          <Input id="phone" type="tel" placeholder="(512) 555-0123" {...register("phone")} aria-invalid={!!errors.phone} />
-          {errors.phone && <p className="text-sm text-red-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.phone.message}</p>}
+          <Label htmlFor="phone">Phone Number <span className="text-red-500">*</span></Label>
+          <Input
+            id="phone"
+            name="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="(555) 123-4567"
+            required
+          />
         </div>
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-semibold text-gray-900">Email Address <span className="text-red-500">*</span></label>
-        <Input id="email" type="email" placeholder="john@example.com" {...register("email")} aria-invalid={!!errors.email} />
-        {errors.email && <p className="text-sm text-red-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.email.message}</p>}
+        <Label htmlFor="email">Email Address <span className="text-red-500">*</span></Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="john@example.com"
+          required
+        />
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="service" className="text-sm font-semibold text-gray-900">Service Needed</label>
+        <Label htmlFor="service">Service Needed</Label>
         <select
           id="service"
-          {...register("service")}
-          className="flex h-11 w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 focus:border-[#0056b3] focus:outline-none focus:ring-2 focus:ring-[#0056b3]/20"
+          name="service"
+          value={formData.service}
+          onChange={handleChange}
+          className="flex h-11 w-full rounded-md border border-[#e9ecef] bg-white px-4 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:border-[#0056b3] focus-visible:ring-2 focus-visible:ring-[#0056b3]/20"
         >
           <option value="">Select a service...</option>
-          <option value="residential">Residential Repair</option>
-          <option value="panel">Panel Upgrade</option>
-          <option value="commercial">Commercial Wiring</option>
-          <option value="lighting">Lighting Installation</option>
-          <option value="emergency">Emergency Service</option>
+          <option value="Residential Wiring">Residential Wiring</option>
+          <option value="Panel Upgrade">Panel Upgrade</option>
+          <option value="Lighting Installation">Lighting Installation</option>
+          <option value="Commercial Services">Commercial Services</option>
+          <option value="Emergency Repair">Emergency Repair</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="message" className="text-sm font-semibold text-gray-900">Message <span className="text-red-500">*</span></label>
-        <textarea
+        <Label htmlFor="message">Message</Label>
+        <Textarea
           id="message"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          placeholder="Tell us about your project..."
           rows={4}
-          {...register("message")}
-          className="flex min-h-[120px] w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#0056b3] focus:outline-none focus:ring-2 focus:ring-[#0056b3]/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all"
-          placeholder="Describe your electrical issue or project..."
-          aria-invalid={!!errors.message}
-        ></textarea>
-        {errors.message && <p className="text-sm text-red-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.message.message}</p>}
+        />
       </div>
 
-      {error && (
-        <div className="p-3 bg-red-50 text-red-700 rounded-md text-sm flex items-center gap-2 border border-red-200">
-          <AlertCircle className="w-4 h-4" /> {error}
-        </div>
-      )}
+      {/* Honeypot */}
+      <input
+        type="text"
+        name="_gotcha"
+        value={formData._gotcha}
+        onChange={handleChange}
+        className="hidden"
+        tabIndex={-1}
+        autoComplete="off"
+      />
 
-      <Button type="submit" size="lg" className="w-full text-lg" disabled={isSubmitting}>
+      <Button type="submit" className="w-full rounded-full h-12 text-base" disabled={isSubmitting}>
         {isSubmitting ? (
-          <>
-            <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Sending...
-          </>
+          <span className="flex items-center gap-2">
+            <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Sending...
+          </span>
         ) : (
-          submitLabel
+          "Send Message"
         )}
       </Button>
-      
-      <p className="text-xs text-center text-gray-500">
-        By submitting this form, you agree to our privacy policy. We never share your data.
-      </p>
     </form>
   );
 }

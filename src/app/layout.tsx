@@ -3,53 +3,64 @@ import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { MobileCTA } from "@/components/layout/mobile-cta";
+import { siteConfig } from "@/config/site";
 
-const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-heading", display: "swap" });
-const openSans = Open_Sans({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+const montserrat = Montserrat({ 
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"]
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--font-open-sans",
+  display: "swap",
+  weight: ["300", "400", "600", "700"]
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://summitelectric-demo.com"),
   title: {
-    default: "Summit Electric | Reliable Electrical Services in Austin",
-    template: "%s | Summit Electric"
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: "Trusted local electricians providing residential and commercial electrical services in Austin, TX. Licensed, insured, and available 24/7 for emergencies.",
+  description: siteConfig.description,
+  keywords: ["electrician", "Houston", "residential electrical", "commercial electrical", "emergency repair"],
+  authors: [{ name: siteConfig.name }],
+  creator: "Pegrio",
+  metadataBase: new URL("https://summitelectric.com"),
   openGraph: {
-    title: "Summit Electric | Reliable Electrical Services",
-    description: "Professional electrical services for your home and business. Licensed, insured, and committed to quality.",
-    url: "https://summitelectric-demo.com",
-    siteName: "Summit Electric",
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
     images: [
       {
-        url: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1200",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Summit Electric",
+        alt: siteConfig.name,
       },
     ],
-    locale: "en_US",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${openSans.variable}`}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className="min-h-screen flex flex-col font-body">
+    <html lang="en">
+      <body className={`${montserrat.variable} ${openSans.variable} font-sans antialiased`}>
         <Navbar />
-        <main className="flex-grow">{children}</main>
+        <main className="min-h-screen">
+          {children}
+        </main>
+        <MobileCTA />
         <Footer />
         
         {/* Structured Data for LocalBusiness */}
@@ -59,32 +70,37 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Electrician",
-              "name": "Summit Electric",
-              "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1200",
-              "telephone": "+15125550199",
-              "email": "info@summitelectric.com",
+              "name": siteConfig.name,
+              "image": "https://summitelectric.com/logo.png",
+              "@id": "https://summitelectric.com",
+              "url": "https://summitelectric.com",
+              "telephone": siteConfig.contact.phone,
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "1200 Main St, Building B",
-                "addressLocality": "Austin",
+                "streetAddress": "4521 Westheimer Rd, Suite 200",
+                "addressLocality": "Houston",
                 "addressRegion": "TX",
-                "postalCode": "78701",
+                "postalCode": "77027",
                 "addressCountry": "US"
               },
-              "openingHoursSpecification": [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                  "opens": "08:00",
-                  "closes": "18:00"
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": "Saturday",
-                  "opens": "09:00",
-                  "closes": "14:00"
-                }
-              ],
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 29.7379,
+                "longitude": -95.4335
+              },
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"
+                ],
+                "opens": "08:00",
+                "closes": "18:00"
+              },
               "priceRange": "$$"
             }),
           }}

@@ -1,21 +1,10 @@
-import Link from "next/link";
-import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone, ArrowUp, Copyright } from "lucide-react";
-import { Button } from "@/components/ui/button";
+"use client";
 
-const footerLinks = {
-  company: [
-    { label: "About Us", href: "/about" },
-    { label: "Our Team", href: "/about#team" },
-    { label: "Careers", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-  ],
-  services: [
-    { label: "Residential Electrical", href: "/services" },
-    { label: "Commercial Wiring", href: "/services" },
-    { label: "Panel Upgrades", href: "/services" },
-    { label: "Emergency Repair", href: "/services" },
-  ],
-};
+import React from "react";
+import Link from "next/link";
+import { Facebook, Instagram, Linkedin, ArrowUp, Mail, MapPin, Phone } from "lucide-react";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -24,105 +13,135 @@ export function Footer() {
 
   return (
     <footer className="bg-gray-900 text-white pt-16 pb-8">
-      <div className="container-custom">
+      <div className="max-w-[1200px] mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Col */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="bg-white text-[#0056b3] p-1.5 rounded">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 bg-[#0056b3] rounded flex items-center justify-center text-white font-bold">
+                S
               </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold leading-none">Summit</span>
-                <span className="text-xs font-medium text-gray-400 leading-tight">Electric</span>
-              </div>
+              <span className="text-xl font-bold font-['Montserrat']">
+                Summit Electric
+              </span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Summit Electric is your trusted local partner for all residential and commercial electrical needs. Licensed, insured, and committed to safety.
+              Trusted local service provider delivering quality workmanship and reliable home improvement solutions since 2010.
             </p>
             <div className="flex gap-4 pt-2">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook page" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href={siteConfig.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our Facebook page"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram page" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href={siteConfig.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our Instagram page"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn page" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href={siteConfig.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our LinkedIn page"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links Col */}
           <div>
-            <h4 className="font-bold mb-6 text-lg">Company</h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-gray-400 hover:text-[#ff6b00] transition-colors text-sm">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <h3 className="font-bold text-lg mb-4 font-['Montserrat']">Quick Links</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>
+                <Link href={siteConfig.links.home} className="hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href={siteConfig.links.about} className="hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href={siteConfig.links.services} className="hover:text-white transition-colors">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link href={siteConfig.links.contact} className="hover:text-white transition-colors">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services Col */}
           <div>
-            <h4 className="font-bold mb-6 text-lg">Services</h4>
-            <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-gray-400 hover:text-[#ff6b00] transition-colors text-sm">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <h3 className="font-bold text-lg mb-4 font-['Montserrat']">Services</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><Link href="/services#residential" className="hover:text-white transition-colors">Residential Wiring</Link></li>
+              <li><Link href="/services#commercial" className="hover:text-white transition-colors">Commercial Services</Link></li>
+              <li><Link href="/services#repair" className="hover:text-white transition-colors">Emergency Repairs</Link></li>
+              <li><Link href="/services#panel" className="hover:text-white transition-colors">Panel Upgrades</Link></li>
+              <li><Link href="/services#lighting" className="hover:text-white transition-colors">Lighting Installation</Link></li>
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact Col */}
           <div>
-            <h4 className="font-bold mb-6 text-lg">Contact Us</h4>
-            <ul className="space-y-4">
+            <h3 className="font-bold text-lg mb-4 font-['Montserrat']">Contact Us</h3>
+            <ul className="space-y-4 text-sm text-gray-400">
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-[#ff6b00] mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-sm">
-                  1200 Main St, Building B<br />
-                  Austin, TX 78701
-                </span>
+                <Phone className="w-5 h-5 text-[#0056b3] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white font-semibold">{siteConfig.contact.phone}</p>
+                  <p className="text-xs mt-1">24/7 Emergency Line</p>
+                </div>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-[#ff6b00] flex-shrink-0" />
-                <a href="tel:5125550199" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
-                  (512) 555-0199
+              <li className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-[#0056b3] flex-shrink-0 mt-0.5" />
+                <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-white transition-colors">
+                  {siteConfig.contact.email}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-[#ff6b00] flex-shrink-0" />
-                <a href="mailto:info@summitelectric.com" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  info@summitelectric.com
-                </a>
+              <li className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#0056b3] flex-shrink-0 mt-0.5" />
+                <span>{siteConfig.contact.address}</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm flex items-center gap-1">
-            <Copyright className="w-3 h-3" />
-            {new Date().getFullYear()} Summit Electric. All rights reserved.
+          <p className="text-sm text-gray-500">
+            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <Button
-            variant="ghost"
-            size="sm"
+          <div className="flex gap-6 text-sm text-gray-500">
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms of Service
+            </Link>
+          </div>
+          <button
             onClick={scrollToTop}
-            className="text-gray-400 hover:text-white"
+            className="p-2 bg-gray-800 rounded-full hover:bg-[#0056b3] transition-colors text-white"
             aria-label="Back to top"
           >
-            Back to Top <ArrowUp className="w-4 h-4 ml-2" />
-          </Button>
+            <ArrowUp className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </footer>
