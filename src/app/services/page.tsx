@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Zap, Home, Building, Hammer, Lightbulb, Plug, Fan, Settings } from "lucide-react";
+import { Zap, Home, Building, Hammer, Lightbulb, Plug, Fan, Settings, Shield } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/contact/contact-form";
