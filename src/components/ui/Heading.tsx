@@ -16,7 +16,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       4: "text-xl sm:text-2xl font-semibold",
     };
 
-    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+    const Tag = `h${level}` as React.ElementType;
 
     return (
       <Tag
