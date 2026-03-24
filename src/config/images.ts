@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const images = {
   // Homepage hero banner — the first image visitors see
   "hero": {
