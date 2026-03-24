@@ -1,17 +1,22 @@
 "use client";
-import { useState } from "react";
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
 
-const ContactForm: React.FC = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+import { useState } from "react";
+import { cn } from "@/lib/cn";
+
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,12 +25,13 @@ const ContactForm: React.FC = () => {
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
       if (res.ok) {
         setIsSuccess(true);
-        setFormData({ name: "", email: "", message: "" });
       } else {
         setError("Something went wrong. Please try again.");
       }
@@ -37,23 +43,17 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
-      {isSuccess && <p className="text-green-500 mb-4">Thank you! We'll be in touch within 24 hours.</p>}
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-      <Input id="name" label="Name" type="text" required onChange={handleChange} />
-      <Input id="email" label="Email" type="email" required onChange={handleChange} />
-      <textarea
-        id="message"
-        name="message"
-        placeholder="Your message"
-        required
-        className="w-full border border-slate-200 rounded-lg p-4 mb-4"
-        onChange={handleChange}
-      />
-      <Button variant="primary" onClick={handleSubmit} disabled={isSubmitting}>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <input type="text" name="name" placeholder="Your Name" onChange={handleChange} required className={cn("input")} />
+      <input type="email" name="email" placeholder="Your Email" onChange={handleChange} required className={cn("input")} />
+      <input type="tel" name="phone" placeholder="Your Phone" onChange={handleChange} required className={cn("input")} />
+      <textarea name="message" placeholder="Your Message" onChange={handleChange} required className={cn("input")} />
+      <button type="submit" disabled={isSubmitting} className={cn("button")}>
         {isSubmitting ? "Sending..." : "Send Message"}
-      </Button>
+      </button>
+      {isSuccess && <p className="text-green-500">Thank you! We'll be in touch within 24 hours.</p>}
+      {error && <p className="text-red-500">{error}</p>}
+      <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
     </form>
   );
 };
