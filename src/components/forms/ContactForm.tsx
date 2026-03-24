@@ -51,7 +51,7 @@ const ContactForm = () => {
       <button type="submit" disabled={isSubmitting} className={cn("button")}>
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>
-      {isSuccess && <p className="text-green-500">Thank you! We'll be in touch within 24 hours.</p>}
+      {isSuccess && <p className="text-green-500">Thank you! We&apos;ll be in touch within 24 hours.</p>}
       {error && <p className="text-red-500">{error}</p>}
       <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
     </form>
