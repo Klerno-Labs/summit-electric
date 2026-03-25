@@ -1,25 +1,10 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import QuoteWizard from "@/components/forms/QuoteWizard";
-
-export const metadata = {
-  title: "Contact Us | Summit Electric",
-  description: "Request a quote for our electrical services.",
-  openGraph: {
-    title: "Contact Us | Summit Electric",
-    description: "Request a quote for our electrical services.",
-    image: "/images/contact.jpg",
-  },
-};
+import QuoteWizard from '@/components/forms/QuoteWizard';
 
 export default function ContactPage() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <QuoteWizard />
-      </main>
-      <Footer />
-    </>
+    <div className="pt-20">
+      <h1 className="text-3xl font-bold text-center mb-8">Request a Quote</h1>
+      <QuoteWizard />
+    </div>
   );
 }

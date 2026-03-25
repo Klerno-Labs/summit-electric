@@ -1,16 +1,22 @@
-import { ReactNode } from "react";
-import "./globals.css";
+import './globals.css';
+import { Metadata } from 'next';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 
-export const metadata = {
-  title: "Summit Electric | Trusted Local Service Provider",
-  description: "Delivering quality workmanship and reliable home improvement solutions.",
-  metadataBase: new URL("https://example.com"),
+export const metadata: Metadata = {
+  title: 'Summit Electric - Trusted Local Service Provider',
+  description: 'Quality workmanship and reliable home improvement solutions.',
+  metadataBase: new URL('https://summitelectric.com'),
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-background text-text">{children}</body>
+      <body>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

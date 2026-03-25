@@ -1,32 +1,12 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-
-export const metadata = {
-  title: "Service Areas | Summit Electric",
-  description: "Discover the areas we serve and our commitment to local communities.",
-  openGraph: {
-    title: "Service Areas | Summit Electric",
-    description: "Discover the areas we serve and our commitment to local communities.",
-    image: "/images/service-areas.jpg",
-  },
-};
-
-export default function ServiceAreas() {
+export default function ServiceAreasPage() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <h1 className="text-3xl font-bold">Service Areas</h1>
-        <p>We proudly serve the following areas:</p>
-        <ul>
-          <li>Houston, TX</li>
-          <li>Spring, TX</li>
-          <li>The Woodlands, TX</li>
-          <li>Katy, TX</li>
-          <li>Cypress, TX</li>
-        </ul>
-      </main>
-      <Footer />
-    </>
+    <div className="pt-20">
+      <h1 className="text-3xl font-bold text-center mb-8">Service Areas</h1>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <p className="text-lg leading-relaxed text-muted-foreground">
+          We proudly serve the following areas: Houston, Austin, San Antonio, and surrounding regions. Contact us to find out if we service your area!
+        </p>
+      </section>
+    </div>
   );
 }

@@ -1,25 +1,10 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import FAQ from "@/components/sections/FAQ";
-
-export const metadata = {
-  title: "FAQ | Summit Electric",
-  description: "Find answers to common questions about our services.",
-  openGraph: {
-    title: "FAQ | Summit Electric",
-    description: "Find answers to common questions about our services.",
-    image: "/images/faq.jpg",
-  },
-};
+import FAQ from '@/components/sections/FAQ';
 
 export default function FAQPage() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <FAQ />
-      </main>
-      <Footer />
-    </>
+    <div className="pt-20">
+      <h1 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h1>
+      <FAQ />
+    </div>
   );
 }
