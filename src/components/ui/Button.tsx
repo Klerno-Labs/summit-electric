@@ -1,22 +1,37 @@
 "use client";
-import { cn } from "@/lib/cn";
+
+import React from "react";
+import { cn } from "@/lib/utils";
 
 interface ButtonProps {
-  variant?: "primary" | "secondary" | "outline";
-  onClick?: () => void;
   children: React.ReactNode;
+  variant: "primary" | "secondary" | "ghost";
+  size: "sm" | "md" | "lg";
+  href?: string;
+  onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ variant = "primary", onClick, children }) => {
-  const baseStyles = "px-4 py-2 rounded-lg transition-all duration-200";
+const Button: React.FC<ButtonProps> = ({ children, variant, size, href, onClick }) => {
+  const baseStyles = "rounded-lg transition-all duration-200";
   const variantStyles = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700",
-    secondary: "bg-white text-blue-600 border border-blue-600 hover:bg-blue-50",
-    outline: "border border-blue-600 text-blue-600 hover:bg-blue-50",
+    primary: "bg-primary text-white hover:bg-blue-700",
+    secondary: "bg-white text-primary border-2 border-primary hover:bg-slate-50",
+    ghost: "bg-transparent text-primary hover:bg-primary/10",
+  };
+  const sizeStyles = {
+    sm: "px-4 py-2 text-sm",
+    md: "px-6 py-3 text-base",
+    lg: "px-8 py-4 text-lg",
   };
 
-  return (
-    <button className={cn(baseStyles, variantStyles[variant])} onClick={onClick}>
+  const classes = cn(baseStyles, variantStyles[variant], sizeStyles[size]);
+
+  return href ? (
+    <a className={classes} href={href}>
+      {children}
+    </a>
+  ) : (
+    <button className={classes} onClick={onClick}>
       {children}
     </button>
   );

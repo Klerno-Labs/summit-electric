@@ -1,0 +1,12 @@
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Remove unused styles */
+h1, h2, h3, p {
+  margin: 0;
+}
