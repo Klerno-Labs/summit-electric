@@ -1,22 +1,20 @@
 export const siteConfig = {
   name: "Summit Electric",
-  description: "Trusted local service provider delivering quality workmanship and reliable home improvement solutions.",
   email: "info@summitelectric.com",
-  phone: "(512) 555-1234",
+  phone: "(512) 555-0199",
   address: "4521 Westheimer Rd, Suite 200, Houston, TX 77027",
-  hours: "Mon-Fri: 8am-6pm, Sat: 9am-2pm, Sun: Closed",
-  links: {
-    twitter: "https://twitter.com/summitelectric",
+  hours: {
+    monday: "8am - 6pm",
+    tuesday: "8am - 6pm",
+    wednesday: "8am - 6pm",
+    thursday: "8am - 6pm",
+    friday: "8am - 6pm",
+    saturday: "9am - 2pm",
+    sunday: "Closed",
+  },
+  socialLinks: {
     facebook: "https://facebook.com/summitelectric",
     instagram: "https://instagram.com/summitelectric",
+    twitter: "https://twitter.com/summitelectric",
   },
-  navLinks: [
-    { href: "/", label: "Home" },
-    { href: "/services", label: "Services" },
-    { href: "/about", label: "About" },
-    { href: "/gallery", label: "Gallery" },
-    { href: "/service-areas", label: "Service Areas" },
-    { href: "/faq", label: "FAQ" },
-    { href: "/contact", label: "Contact" },
-  ],
 };

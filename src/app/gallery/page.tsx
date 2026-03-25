@@ -1,11 +1,25 @@
-import Footer from "@/components/ui/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import Gallery from "@/components/sections/Gallery";
+
+export const metadata = {
+  title: "Gallery | Summit Electric",
+  description: "View our completed projects and see our quality workmanship.",
+  openGraph: {
+    title: "Gallery | Summit Electric",
+    description: "View our completed projects and see our quality workmanship.",
+    image: "/images/gallery-1.jpg",
+  },
+};
 
 export default function GalleryPage() {
   return (
-    <main className="pt-20">
-      <h1 className="text-4xl font-bold">Gallery</h1>
-      <p className="text-lg">Check out our recent projects and see the quality of our work.</p>
+    <>
+      <Navbar />
+      <main>
+        <Gallery />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

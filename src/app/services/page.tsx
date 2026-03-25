@@ -1,12 +1,27 @@
-import Footer from "@/components/ui/Footer";
-import ServicesHub from "@/components/sections/ServicesHub";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import FilterBar from "@/components/forms/FilterBar";
+import ServiceList from "@/components/sections/ServicesGrid";
 
-export default function ServicesPage() {
+export const metadata = {
+  title: "Services | Summit Electric",
+  description: "Explore our range of electrical services tailored for your needs.",
+  openGraph: {
+    title: "Services | Summit Electric",
+    description: "Explore our range of electrical services tailored for your needs.",
+    image: "/images/service-1.jpg",
+  },
+};
+
+export default function Services() {
   return (
-    <main className="pt-20">
-      <h1 className="text-4xl font-bold">Our Services</h1>
-      <ServicesHub />
+    <>
+      <Navbar />
+      <main>
+        <FilterBar />
+        <ServiceList />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

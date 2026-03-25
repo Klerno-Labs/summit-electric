@@ -1,38 +1,33 @@
-import { images } from "@/config/images";
-import HeroSection from "@/components/HeroSection";
-import ServicesHub from "@/components/ServicesHub";
-import TrustNarrative from "@/components/TrustNarrative";
-import CTASection from "@/components/CTASection";
-import Testimonials from "@/components/Testimonials";
-import Footer from "@/components/Footer";
-import Navigation from "@/components/Navigation";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/sections/Hero";
+import TrustStack from "@/components/sections/TrustStack";
+import ServicesGrid from "@/components/sections/ServicesGrid";
+import Testimonials from "@/components/sections/Testimonials";
+import CTA from "@/components/sections/CTA";
 
 export const metadata = {
-  title: "Summit Electric | Trusted Local Home Services",
-  description: "Your trusted partner for home improvement and electrical solutions in Texas.",
+  title: "Home | Summit Electric",
+  description: "Expert home repairs you can trust. Get a free estimate today!",
   openGraph: {
-    title: "Summit Electric | Trusted Local Home Services",
-    description: "Your trusted partner for home improvement and electrical solutions in Texas.",
-    url: "https://example.com",
-    images: [images.hero.src],
+    title: "Home | Summit Electric",
+    description: "Expert home repairs you can trust. Get a free estimate today!",
+    image: "/images/hero.jpg",
   },
 };
 
 export default function Home() {
   return (
-    <main>
-      <Navigation />
-      <HeroSection
-        heading="Trusted Local Partner for Home Improvement"
-        subtext="Delivering quality workmanship and reliable electrical solutions. Your safety is our priority."
-        ctaText="Get a Free Estimate"
-        imageSrc={images.hero.src}
-      />
-      <ServicesHub />
-      <TrustNarrative />
-      <CTASection />
-      <Testimonials />
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <TrustStack />
+        <ServicesGrid />
+        <Testimonials />
+        <CTA />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

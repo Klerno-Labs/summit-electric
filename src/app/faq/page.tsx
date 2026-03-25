@@ -1,11 +1,25 @@
-import Footer from "@/components/ui/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import FAQ from "@/components/sections/FAQ";
+
+export const metadata = {
+  title: "FAQ | Summit Electric",
+  description: "Find answers to common questions about our services.",
+  openGraph: {
+    title: "FAQ | Summit Electric",
+    description: "Find answers to common questions about our services.",
+    image: "/images/faq.jpg",
+  },
+};
 
 export default function FAQPage() {
   return (
-    <main className="pt-20">
-      <h1 className="text-4xl font-bold">Frequently Asked Questions</h1>
-      <p className="text-lg">Find answers to common questions about our services and processes.</p>
+    <>
+      <Navbar />
+      <main>
+        <FAQ />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

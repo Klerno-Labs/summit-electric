@@ -1,13 +1,25 @@
-import Footer from "@/components/ui/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import About from "@/components/sections/About";
+
+export const metadata = {
+  title: "About Us | Summit Electric",
+  description: "Learn more about our team and our commitment to quality service.",
+  openGraph: {
+    title: "About Us | Summit Electric",
+    description: "Learn more about our team and our commitment to quality service.",
+    image: "/images/about.jpg",
+  },
+};
 
 export default function AboutPage() {
   return (
-    <main className="pt-20">
-      <h1 className="text-4xl font-bold">About Us</h1>
-      <p className="text-lg">
-        At Summit Electric, we pride ourselves on being a trusted local service provider delivering quality workmanship and reliable home improvement solutions. Our team of experienced electricians is dedicated to ensuring your safety and satisfaction.
-      </p>
+    <>
+      <Navbar />
+      <main>
+        <About />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

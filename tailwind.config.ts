@@ -2,34 +2,38 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#0F172A",
-        secondary: "#F8FAFC",
-        accent: "#3B82F6",
-        "accent-hover": "#2563EB",
-        success: "#10B981",
-        error: "#EF4444",
-        background: "#FFFFFF",
-        surface: "#FFFFFF",
-        "text-main": "#1E293B",
-        "text-body": "#475569",
-        muted: "#94A3B8",
+        primary: "#0056b3",
+        secondary: "#f0f4f8",
+        accent: "#ff9900",
+        background: "#ffffff",
+        surface: "#ffffff",
+        text: "#1a1a1a",
+        muted: "#6b7280",
       },
       fontFamily: {
-        heading: ["Plus Jakarta Sans", "sans-serif"],
-        body: ["Inter", "sans-serif"],
+        heading: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        body: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        accent: ["Space Grotesk", "monospace"],
       },
       spacing: {
-        "spacing-section": "4rem",
+        base: "8px",
+        section: "120px",
+        card: "32px",
+        button: "16px",
       },
       borderRadius: {
-        lg: "1rem",
+        small: "4px",
+        medium: "8px",
+        large: "16px",
+      },
+      boxShadow: {
+        card: "0 4px 20px rgba(0, 0, 0, 0.06)",
       },
     },
   },
