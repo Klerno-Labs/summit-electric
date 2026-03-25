@@ -38,7 +38,7 @@ export function ServicesHub() {
             Comprehensive Home Improvement
           </h2>
           <p className="text-lg text-slate-600">
-            We handle every aspect of your home's electrical needs with precision and care.
+            We handle every aspect of your home&apos;s electrical needs with precision and care.
           </p>
         </div>
 
