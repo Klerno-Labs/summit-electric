@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const images = {
   hero: {
     src: "https://mfile.z.ai/1774397102220-3155203c94d14148ae8a97ae4a4045a0.png?ufileattname=2026032508045428c39f70143942fc_watermark.png",
