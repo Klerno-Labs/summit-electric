@@ -1,47 +1,59 @@
-# Client Handoff for Summit Electric Website
+# Summit Electric Website Handoff
 
-## What Was Built
-We have created a professional, multi-page website for Summit Electric, designed to attract and convert visitors into leads. Here’s a brief overview of each page:
+## Overview
+We have built a bespoke website for Summit Electric, designed to convert local visitors into booked appointments and quote requests. Below is a page-by-page overview of the site.
 
-- **Home Page**: Features a compelling hero section, service hub, trust narrative, and a lead capture form.
-- **Services Page**: Lists all services offered with detailed descriptions and pricing.
-- **About Page**: Shares the origin story of Summit Electric and introduces the team.
-- **Gallery Page**: Displays a before/after photo gallery showcasing completed projects.
-- **Service Areas Page**: Provides a map and list of areas served.
-- **FAQ Page**: Answers common questions in an accordion format.
-- **Contact Page**: Includes a contact form and map integration for easy access.
+### Home Page
+- **Hero Section**: Engaging introduction with a strong call-to-action.
+- **Trust Stack**: Displays trust badges and experience.
+- **Services Grid**: Highlights popular services.
+- **Testimonials**: Real customer feedback.
+- **Footer**: Contains links and contact information.
+
+### Services Page
+- Detailed listing of services with sticky filters for easy navigation.
+
+### About Page
+- Company history, values, and team profiles to build trust.
+
+### Gallery Page
+- High-resolution project gallery showcasing before/after images.
+
+### Service Areas Page
+- Interactive map and list of serviceable locations.
+
+### FAQ Page
+- Accordion-based support center for customer inquiries.
+
+### Contact Page
+- Multi-step Quote Form Wizard for lead generation.
 
 ## Changing Images
-All images on the site are controlled from ONE file: `src/config/images.ts`. Each image slot has a comment explaining where it appears on the site. 
-
-### To Swap an Image:
-1. Open `src/config/images.ts`.
-2. Find the image slot you want to change (e.g., "hero").
-3. Replace the `src` URL with your own image URL.
-4. Update the `alt` text to describe the new image.
-5. Save the file — the change will appear on every page that uses that image.
-
-### Supported Formats:
-- Any web-accessible image URL (Cloudinary, S3, etc.).
+All images are controlled from ONE file: `src/config/images.ts`.
+- Each image slot has a comment explaining where it appears on the site.
+- To swap an image: replace the `src` URL and update the `alt` text.
+- Supported formats: any web-accessible image URL (Cloudinary, S3, etc.).
 - For best results: use images at least 1200px wide, landscape orientation for heroes.
+- After saving the file, the change appears on every page that uses that image.
 
 ## Changing Logo
-If a logo slot exists, follow the same steps as above to update the logo image in `src/config/images.ts`.
+If a logo slot exists, you can swap it in the same `src/config/images.ts` file.
 
 ## Changing Colors
-To modify the website colors, edit the `tailwind.config.js` file. You can change the primary, secondary, and accent colors to match your branding.
+Modify the Tailwind config in `tailwind.config.js` to change colors.
 
 ## Changing Fonts
-To swap the Google Font used in the layout, update the `layout.tsx` file in the `src/app` directory.
+Update the Google Font in `layout.tsx` to change fonts.
 
 ## Updating Text Content
-To change text content, locate the respective page files in the `src/app` directory and edit the text directly.
+To update text content, edit the respective page files in the `src/pages` directory.
 
 ## Requesting Changes
-For any additional changes or updates, please reach out to Pegrio support.
+For any changes or updates, please contact Pegrio support.
 
-## Hosting and Maintenance Info
-The website is hosted on Cloudflare Pages. Regular updates and maintenance can be requested through Pegrio support.
+## Hosting and Maintenance
+- Ensure your domain is connected and SSL is enabled.
+- Regularly check for updates and performance optimizations.
 
 ## Contact
-For support, please contact Pegrio at support@pegrio.com.
+For support, reach out to Pegrio at support@pegrio.com.
