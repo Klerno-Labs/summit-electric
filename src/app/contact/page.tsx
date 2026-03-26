@@ -34,7 +34,7 @@ const ContactPage = () => {
       <input type="tel" name="phone" placeholder="Your Phone" required onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
       <textarea name="message" placeholder="Your Message" required onChange={(e) => setFormData({ ...formData, message: e.target.value })}></textarea>
       <button type="submit" className={cn("bg-primary text-white px-6 py-2 rounded-lg")}>Send Message</button>
-      {isSuccess && <p className="text-green-500">Thank you! We'll be in touch within 24 hours.</p>}
+      {isSuccess && <p className="text-green-500">Thank you! We&apos;ll be in touch within 24 hours.</p>}
       {error && <p className="text-red-500">{error}</p>}
       <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
     </form>
